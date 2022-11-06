@@ -1,8 +1,5 @@
-import os
 import pygame
 import random
-
-path = os.path.dirname(__file__)
 
 pygame.init()
 
@@ -22,8 +19,6 @@ for i in range(3):
         värvid[i] = ((random.randint(0, 5)*51)), (random.randint(0, 5)*51), ((random.randint(0, 5)*51))
         if värvid[i] in värvid[:i] and värvid[i] != (0, 0, 0): continue
         else: break
-
-print(värvid)
 
 def teineleht():
         pygame.draw.rect(ekraan, värvid[0], (150, 110, 150, 150))
