@@ -11,7 +11,7 @@ ekraan = pygame.display.set_mode((laius, pikkus))
 pygame.display.set_caption("Reaktsioonimäng")
 
 sisu = "Start"
-font = pygame.font.Font(None, 64)
+fontisuurus = 64
 
 värvid = [0, 0, 0]
 for i in range(3):
@@ -33,22 +33,30 @@ while True:
             pygame.quit()
             quit()
     
+    font = pygame.font.Font(None, fontisuurus)
     tekst = font.render(sisu, True, (0, 0, 0), (0, 255, 0))
     tekstikast = tekst.get_rect() 
     tekstikast.center = (laius // 2, pikkus // 2)
     
     ekraan.blit(tekst, tekstikast)
     
+    tekst1 = font.render("Jätka", True, (0, 0, 0), (0, 255, 0))
+    tekstikast1 = tekst1.get_rect()
+    tekstikast1.center = (laius // 2, 540)
+    
     if sisu == "Jäta meelde need kolm värvi":
         teineleht()
-        tekst1 = font.render("Jätka", True, (0, 0, 0), (0, 255, 0))
-        tekstikast1 = tekst1.get_rect()
-        tekstikast1.center = (laius // 2, 540)
         ekraan.blit(tekst1, tekstikast1)
-                
+    
+    if sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti. Vale korral -1 punkti":
+        ekraan.blit(tekst1, tekstikast1)
+        
     if pygame.mouse.get_pressed()[0]:
         pos = pygame.mouse.get_pos()
         if tekstikast.collidepoint(pos):
             sisu = "Jäta meelde need kolm värvi"
+        if tekstikast1.collidepoint(pos):
+            sisu = "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti. Vale korral -1 punkti"
+            fontisuurus = 25
             
     pygame.display.update()
