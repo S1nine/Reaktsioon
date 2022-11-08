@@ -18,7 +18,7 @@ värvid = [0, 0, 0]
 for i in range(3):
     while True:
         värvid[i] = ((random.randint(0, 3)*85)), (random.randint(0, 3)*85), ((random.randint(0, 3)*85))
-        if värvid[i] in värvid[:i] and värvid[i] != (255, 255, 255): continue
+        if värvid[i] in värvid[:i] or värvid[i] == (255, 255, 255): continue
         else: break
 
 def valik():
