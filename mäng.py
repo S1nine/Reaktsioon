@@ -48,7 +48,7 @@ def valik():
 
 while True:
     ekraan.fill(põhivärv)
-    
+   
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -79,17 +79,18 @@ while True:
     
     ekraan.blit(tekst, tekstikast)
     
-    tekst1 = font.render("Jätka", True, (0, 0, 0), (0, 255, 0))
+    font1 = pygame.font.Font(None, 64)
+    tekst1 = font1.render("Jätka", True, (0, 0, 0), (0, 255, 0))
     tekstikast1 = tekst1.get_rect()
     tekstikast1.center = (laius // 2, 540)
-    
+                        
     if sisu == "Jäta meelde need kolm värvi":
         pygame.draw.rect(ekraan, värvid[0], (150, 110, 150, 150))
         pygame.draw.rect(ekraan, värvid[1], (500, 110, 150, 150))
         pygame.draw.rect(ekraan, värvid[2], (325, 340, 150, 150))
         ekraan.blit(tekst1, tekstikast1)
     
-    if sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti. Vale korral -1 punkti" or "Sa võitsid!":
+    if sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti. Vale korral -1 punkti" or sisu == "Sa võitsid!":
         ekraan.blit(tekst1, tekstikast1)
                 
     pygame.display.update()
