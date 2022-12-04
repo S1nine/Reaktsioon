@@ -11,7 +11,7 @@ def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 
     värvid4[random.randint(0,3)] = õige_värv
     for i in range(3):
         while True:
-            suvaline1[i] = ((random.randint(0, 3)*85), (random.randint(0, 3)*85), (random.randint(0, 3)*85))
+            suvaline1[i] = (((random.randint(0, 3)*85)), ((random.randint(0, 3)*85)), ((random.randint(0, 3)*85)))
             if suvaline1[i] in suvaline1[:i] or suvaline1[i] == (255, 255, 255) or suvaline1[i] in värvid: continue
             else: break
     for i in range(4):
@@ -24,9 +24,11 @@ def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 
    
 def värvi_valik(n):
     for i in range(n):
+        värvid.append(0)
+    for i in range(n):
         while True:
             värvid[i] = ((random.randint(0, 3)*85), (random.randint(0, 3)*85), (random.randint(0, 3)*85))
-            if värvid[i] in värvid[:i] or värvid[i] == (255, 255, 255): continue
+            if värvid[i] in värvid[:i] or värvid[i] == (255, 255, 255) or värvid[i] == 0: continue
             else: break
     return n
         
@@ -88,7 +90,7 @@ a = 0
 sisu = "Start"
 fontisuurus = 64
 leht = 0
-värvid = [0, 0, 0, 0]
+värvid = []
 
 ekraan = pygame.display.set_mode((laius, pikkus))
 pygame.display.set_caption("Reaktsioonimäng")
@@ -160,10 +162,10 @@ while True:
         for i in range(a):
             pygame.draw.rect(ekraan, värvid[i], (värviasukohad[i]))
     
-    if sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti." or sisu == "Sa võitsid!":
+    elif sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti." or sisu == "Sa võitsid!":
         ekraan.blit(tekst1, tekstikast1) #Joonistab "jätka" tekstikasti
         
-    if sisu == "Vali mitu erinevat värvi soovid meelde jätta":
+    elif sisu == "Vali mitu erinevat värvi soovid meelde jätta":
         font = pygame.font.Font(None, 100)
         numbriasukohad = [(laius//4, pikkus//4), (laius//4*3, pikkus//4), (laius//4, pikkus//4*3), (laius//4*3, pikkus//4*3)]
         
