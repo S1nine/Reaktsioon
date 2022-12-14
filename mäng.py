@@ -4,6 +4,8 @@ import time
 
 pygame.init()
 
+
+
 def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 on õige  
     k = 0
     suvaline1 = [0, 0, 0]
@@ -14,6 +16,7 @@ def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 
             suvaline1[i] = (((random.randint(0, 3)*85)), ((random.randint(0, 3)*85)), ((random.randint(0, 3)*85)))
             if suvaline1[i] in suvaline1[:i] or suvaline1[i] == (255, 255, 255) or suvaline1[i] in värvid: continue
             else: break
+    
     for i in range(4):
         if värvid4[i] == õige_värv: 
             continue
@@ -38,9 +41,10 @@ def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
     kastlai, kastpikk = laius // 2, pikkus // 2
     õige_värv = random.choice(värvid)
     värvid4 = erinevad_värvid(õige_värv) 
-        
+
     while lugeja < 10:
         time.sleep(0.01)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -61,6 +65,7 @@ def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
                 
                 õige_värv = random.choice(värvid)
                 värvid4 = erinevad_värvid(õige_värv)
+        
                 
         #Joonistab kastid
         kast1 = (0, 0, kastlai, kastpikk)
@@ -99,7 +104,6 @@ pygame.display.set_caption("Reaktsioonimäng")
 while True:
     time.sleep(0.01)
     ekraan.fill(põhivärv)
-   
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -115,9 +119,12 @@ while True:
                     fontisuurus = 25
                     leht += 1
                 elif leht == 1:
+                    algus = time.time()
                     valik()
-                    sisu = "Sa võitsid!"
-                    fontisuurus = 64
+                    lõpp = time.time()
+                    aeg = lõpp-algus
+                    sisu = f"Sa võitsid! sinu tulemus on {round(aeg, 4)} sekundit"
+                    fontisuurus = 32
                     leht += 1
                 elif leht == 2:
                     sisu = "Start"
@@ -139,12 +146,12 @@ while True:
     #Joonistab esimese tekstikasti
     ekraan.blit(tekst, tekstikast)
     
-    #Teine tekstikast
+    #Teine 
+    
     font1 = pygame.font.Font(None, 64)
     tekst1 = font1.render("Jätka", True, (0, 0, 0), sõnataust1)
     tekstikast1 = tekst1.get_rect()
     tekstikast1.center = (laius // 2, 540)
-                        
     #sõnakastivärv
     pos = pygame.mouse.get_pos()
     if tekstikast.collidepoint(pos) and sisu == "Start":
@@ -160,6 +167,8 @@ while True:
         ekraan.blit(tekst1, tekstikast1) #Joonistab "jätka" tekstikasti
         
         värviasukohad = [(laius//4-75, pikkus//4-75, 150, 150), (laius//4*3-75, pikkus//4-75, 150, 150), (laius//4-75, pikkus//4*3-75, 150, 150), (laius//4*3-75, pikkus//4*3-75, 150, 150)]
+        print(a)
+        print(värvid)
         for i in range(a):
             pygame.draw.rect(ekraan, värvid[i], (värviasukohad[i]))
     
@@ -182,5 +191,5 @@ while True:
                 numbritaustad[i] = (181, 181, 181)
             else:
                 numbritaustad[i] = None    
-            
+    
     pygame.display.update()
