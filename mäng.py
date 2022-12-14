@@ -23,6 +23,7 @@ def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 
     return värvid4
    
 def värvi_valik(n):
+    värvid = []
     for i in range(n):
         värvid.append(0)
     for i in range(n):
@@ -30,7 +31,7 @@ def värvi_valik(n):
             värvid[i] = ((random.randint(0, 3)*85), (random.randint(0, 3)*85), (random.randint(0, 3)*85))
             if värvid[i] in värvid[:i] or värvid[i] == (255, 255, 255) or värvid[i] == 0: continue
             else: break
-    return n
+    return n, värvid
         
 def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
     lugeja = 0
@@ -124,7 +125,7 @@ while True:
             for i in range(4):
                 try:
                     if numbrikastid[i].collidepoint(pos):
-                        a = värvi_valik(i+1)
+                        a, värvid = värvi_valik(i+1)
                         sisu = "Jäta meelde see värv"
                         fontisuurus = 64
                 except: continue
