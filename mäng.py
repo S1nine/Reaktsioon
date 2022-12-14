@@ -78,7 +78,7 @@ def valik(algus): #Genereerib 4 ruutu, millest tuleb valida õige
         
         #Loendur
         font = pygame.font.Font(None, 60)
-        tekst = font.render(f"Punkte: {str(lugeja)} | Aeg: {round(time.time()-algus, 2)}", True, (0, 0, 0), (0, 255, 0))
+        tekst = font.render(f"Punkte: {str(lugeja)} | Aeg: {round(time.time()-algus, 1)}", True, (0, 0, 0), (0, 255, 0))
         ekraan.blit(tekst, tekstikast)
         
         pygame.display.update()
@@ -100,6 +100,11 @@ aeg = 0
 ekraan = pygame.display.set_mode((laius, pikkus))
 pygame.display.set_caption("Reaktsioonimäng")
                     
+pygame_icon = pygame.image.load('stopper1.png')
+pygame.display.set_icon(pygame_icon)
+img = pygame.image.load('stopper1.png')
+pygame.display.set_icon(img)
+
 while True:
     time.sleep(0.01)
     ekraan.fill(põhivärv)
