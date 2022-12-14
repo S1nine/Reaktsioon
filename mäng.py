@@ -4,7 +4,15 @@ import time
 
 pygame.init()
 
+<<<<<<< Updated upstream
 
+=======
+pygame_icon = pygame.image.load('stopper.ico')
+pygame.display.set_icon(pygame_icon)
+img = pygame.image.load('stopper.ico')
+pygame.display.set_icon(img)
+                    
+>>>>>>> Stashed changes
 
 def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 on õige  
     k = 0
@@ -76,10 +84,15 @@ def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
             pygame.draw.rect(ekraan, värvid4[i], kastid[i])               
         
         #Loendur
+<<<<<<< Updated upstream
         font = pygame.font.Font(None, 80)
         tekst = font.render(str(lugeja), True, (0, 0, 0), (0, 255, 0))
         tekstikast = tekst.get_rect() 
         tekstikast.center = (laius // 2, 20)
+=======
+        font = pygame.font.Font(None, 60)
+        tekst = font.render(f"Punkte: {str(lugeja)} | Aeg: {round(time.time()-algus, 1)}", True, (0, 0, 0), (0, 255, 0))
+>>>>>>> Stashed changes
         ekraan.blit(tekst, tekstikast)
         
         pygame.display.update()
@@ -99,7 +112,8 @@ värvid = []
 
 ekraan = pygame.display.set_mode((laius, pikkus))
 pygame.display.set_caption("Reaktsioonimäng")
-                    
+
+
 while True:
     time.sleep(0.01)
     ekraan.fill(põhivärv)
