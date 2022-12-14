@@ -40,13 +40,6 @@ def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
     kastlai, kastpikk = laius // 2, pikkus // 2
     õige_värv = random.choice(värvid)
     värvid4 = erinevad_värvid(õige_värv) 
-    
-    
-    ####
-
-    
-
-    ####
 
     while lugeja < 10:
         time.sleep(0.01)
