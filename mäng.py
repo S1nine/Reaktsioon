@@ -4,8 +4,6 @@ import time
 
 pygame.init()
 
-
-
 def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 on õige  
     k = 0
     suvaline1 = [0, 0, 0]
@@ -26,6 +24,7 @@ def erinevad_värvid(õige_värv):  #Genereerib neli erinevat värvi, millest 1 
     return värvid4
    
 def värvi_valik(n):
+    värvid = []
     for i in range(n):
         värvid.append(0)
     for i in range(n):
@@ -33,13 +32,15 @@ def värvi_valik(n):
             värvid[i] = ((random.randint(0, 3)*85), (random.randint(0, 3)*85), (random.randint(0, 3)*85))
             if värvid[i] in värvid[:i] or värvid[i] == (255, 255, 255) or värvid[i] == 0: continue
             else: break
-    return n
+    return n, värvid
         
-def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
+def valik(algus): #Genereerib 4 ruutu, millest tuleb valida õige
     lugeja = 0
     kastlai, kastpikk = laius // 2, pikkus // 2
     õige_värv = random.choice(värvid)
     värvid4 = erinevad_värvid(õige_värv) 
+    tekstikast = pygame.Surface((500, 50)).get_rect() 
+    tekstikast.center = (laius // 2 + 46, 30)
 
     while lugeja < 10:
         time.sleep(0.01)
@@ -76,10 +77,8 @@ def valik(): #Genereerib 4 ruutu, millest tuleb valida õige
             pygame.draw.rect(ekraan, värvid4[i], kastid[i])               
         
         #Loendur
-        font = pygame.font.Font(None, 80)
-        tekst = font.render(str(lugeja), True, (0, 0, 0), (0, 255, 0))
-        tekstikast = tekst.get_rect() 
-        tekstikast.center = (laius // 2, 20)
+        font = pygame.font.Font(None, 60)
+        tekst = font.render(f"Punkte: {str(lugeja)} | Aeg: {round(time.time()-algus, 1)}", True, (0, 0, 0), (0, 255, 0))
         ekraan.blit(tekst, tekstikast)
         
         pygame.display.update()
@@ -96,10 +95,16 @@ sisu = "Start"
 fontisuurus = 64
 leht = 0
 värvid = []
+aeg = 0
 
 ekraan = pygame.display.set_mode((laius, pikkus))
 pygame.display.set_caption("Reaktsioonimäng")
                     
+pygame_icon = pygame.image.load('stopper1.png')
+pygame.display.set_icon(pygame_icon)
+img = pygame.image.load('stopper1.png')
+pygame.display.set_icon(img)
+
 while True:
     time.sleep(0.01)
     ekraan.fill(põhivärv)
@@ -119,19 +124,20 @@ while True:
                     leht += 1
                 elif leht == 1:
                     algus = time.time()
-                    valik()
+                    valik(algus)
                     lõpp = time.time()
                     aeg = lõpp-algus
-                    sisu = f"Sa võitsid! sinu tulemus on {round(aeg, 4)} sekundit"
+                    sisu = f"Sa võitsid! sinu tulemus on {round(aeg, 2)} sekundit"
                     fontisuurus = 32
                     leht += 1
                 elif leht == 2:
                     sisu = "Start"
+                    fontisuurus = 64
                     leht = 0
             for i in range(4):
                 try:
                     if numbrikastid[i].collidepoint(pos):
-                        a = värvi_valik(i+1)
+                        a, värvid = värvi_valik(i+1)
                         sisu = "Jäta meelde see värv"
                         fontisuurus = 64
                 except: continue
@@ -166,12 +172,10 @@ while True:
         ekraan.blit(tekst1, tekstikast1) #Joonistab "jätka" tekstikasti
         
         värviasukohad = [(laius//4-75, pikkus//4-75, 150, 150), (laius//4*3-75, pikkus//4-75, 150, 150), (laius//4-75, pikkus//4*3-75, 150, 150), (laius//4*3-75, pikkus//4*3-75, 150, 150)]
-        print(a)
-        print(värvid)
         for i in range(a):
             pygame.draw.rect(ekraan, värvid[i], (värviasukohad[i]))
     
-    elif sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti." or sisu == "Sa võitsid!":
+    elif sisu == "Ekraanile tuleb 4 värvi. Ainult 1 on õige ning selle valimisel +1 punkti." or sisu == f"Sa võitsid! sinu tulemus on {round(aeg, 2)} sekundit":
         ekraan.blit(tekst1, tekstikast1) #Joonistab "jätka" tekstikasti
         
     elif sisu == "Vali mitu erinevat värvi soovid meelde jätta":
